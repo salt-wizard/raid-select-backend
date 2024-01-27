@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{683EAE29-4CE7-49FD-9B51-A25925C1B010}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RaidSelector</RootNamespace>
+    <AssemblyName>RaidSelector</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+	<LangVersion>Latest</LangVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AudioDevices">
+      <HintPath>..\..\..\Program Files\Streamer.bot\AudioDevices.dll</HintPath>
+    </Reference>
+    <Reference Include="AudioPlayback">
+      <HintPath>..\..\..\Program Files\Streamer.bot\AudioPlayback.dll</HintPath>
+    </Reference>
+    <Reference Include="Common">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DonorDrive">
+      <HintPath>..\..\..\Program Files\Streamer.bot\DonorDrive.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.YouTube.v3">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.YouTube.v3.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.YouTubePartner.v1">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Google.Apis.YouTubePartner.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="LiteDB">
+      <HintPath>..\..\..\Program Files\Streamer.bot\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="LumiaSdk">
+      <HintPath>..\..\..\Program Files\Streamer.bot\LumiaSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig.Signed">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Markdig.Signed.dll</HintPath>
+    </Reference>
+    <Reference Include="MathParser.org-mXparser">
+      <HintPath>..\..\..\Program Files\Streamer.bot\MathParser.org-mXparser.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Toolkit.Uwp.Notifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Vorbis">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.Vorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NAudio.WinMM.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis">
+      <HintPath>..\..\..\Program Files\Streamer.bot\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView">
+      <HintPath>..\..\..\Program Files\Streamer.bot\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="ObsWebsocket">
+      <HintPath>..\..\..\Program Files\Streamer.bot\ObsWebsocket.dll</HintPath>
+    </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>..\..\..\Program Files\Streamer.bot\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="Semver">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Semver.dll</HintPath>
+    </Reference>
+    <Reference Include="Sentry">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Sentry.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="SlobsWebsocket">
+      <HintPath>..\..\..\Program Files\Streamer.bot\SlobsWebsocket.dll</HintPath>
+    </Reference>
+    <Reference Include="Speech">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Speech.dll</HintPath>
+    </Reference>
+    <Reference Include="StreamElements">
+      <HintPath>..\..\..\Program Files\Streamer.bot\StreamElements.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.exe</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Auth">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Common">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.CrowdControl">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.CrowdControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Elgato">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Elgato.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.EmoteHandlers">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.EmoteHandlers.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.HypeRate">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.HypeRate.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Plugin.Interface">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Plugin.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.PolyPop">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.PolyPop.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Pulsoid">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Pulsoid.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.TipeeeStream">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.TipeeeStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.TreatStream">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.TreatStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.VTubeStudio">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.VTubeStudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Streamer.bot.Website">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Streamer.bot.Website.dll</HintPath>
+    </Reference>
+    <Reference Include="StreamLabs">
+      <HintPath>..\..\..\Program Files\Streamer.bot\StreamLabs.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom">
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Streamer.bot\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twitch.ChatClient">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Twitch.ChatClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitch.ClientApi">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Twitch.ClientApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitch.Common">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Twitch.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitch.EventSub">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Twitch.EventSub.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitch.PubSub">
+      <HintPath>..\..\..\Program Files\Streamer.bot\Twitch.PubSub.dll</HintPath>
+    </Reference>
+    <Reference Include="VoiceMod.Client">
+      <HintPath>..\..\..\Program Files\Streamer.bot\VoiceMod.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>..\..\..\Program Files\Streamer.bot\websocket-sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cph.cs" />
+    <Compile Include="cphargs.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

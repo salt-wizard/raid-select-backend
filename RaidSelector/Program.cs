@@ -41,11 +41,11 @@ public class CPHInline
     /**
      * Loads the blacklist from the specified file and puts it into a list for the user
      **/
-    public bool initBlackList()
+    public bool InitBlackList()
     {
         ArrayList blackList = new ArrayList();
 
-        printArgsVerb();
+        //PrintArgsVerbose();
 
         // Make sure that lineCount exists in the args otherwise there will be a crash
         if(null != args["lineCount"])
@@ -65,7 +65,7 @@ public class CPHInline
     /**
      * Instantiates a new raid list for the user when invoked.
      **/
-    public bool initRaidList()
+    public bool InitRaidList()
     {
         ArrayList raidList = new ArrayList();
 
@@ -78,23 +78,32 @@ public class CPHInline
      * Checks to see if the user is part of the blacklist.
      * True if blacklisted, False if not.
      * */
-    public bool isTargetBlackListed()
+    public bool IsTargetBlackListed()
     {
         bool blackListed = false;
         string userName = (string)args["userName"];
         string raidTarget = (string)args["raidTarget"];
 
-        printArgsVerb();
+        //PrintArgsVerbose();
 
         ArrayList blackList = CPH.GetGlobalVar<ArrayList>("raidBlackList", true);
-        CPH.LogVerbose("Blacklisted users ----- ");
+        CPH.LogDebug("Blacklisted users ----- ");
         foreach (string item in blackList)
         {
-            CPH.LogVerbose("user :: " + item);
+            CPH.LogDebug("user :: " + item);
         }
 
-        // We do not 
+        
         blackListed = blackList.Contains(raidTarget);
+        if( blackListed)
+        {
+            CPH.LogDebug("The user is blacklisted; will not add to list.");
+        }
+        else
+        {
+            CPH.LogDebug("The user is NOT blacklisted. Continuing...");
+        }
+
         return blackListed;
     }
 
@@ -102,42 +111,96 @@ public class CPHInline
      * Checks to see if the user was already suggested.
      * True if suggested, False if not.
      * */
-    public bool isTargetedSuggested()
+    public bool IsTargetedSuggested()
     {
         bool alreadySuggested = false;
         string userName = (string)args["userName"];
         string raidTarget = (string)args["raidTarget"];
 
-        printArgsVerb();
+        //PrintArgsVerbose();
 
         ArrayList raidList = CPH.GetGlobalVar<ArrayList>("raidList", true);
-        CPH.LogVerbose("Suggested users ----- ");
+        CPH.LogDebug("Suggested users ----- ");
         foreach (string item in raidList)
         {
-            CPH.LogVerbose("user :: " + item);
+            CPH.LogDebug("user :: " + item);
         }
 
         alreadySuggested = raidList.Contains(raidTarget);
 
         if (alreadySuggested)
         {
-            CPH.SendMessage("@" + userName + " the suggestion " + raidTarget + " has already been made. Please make another suggestion.");
+            CPH.LogDebug("The target has already been suggested.");
+        } else
+        {
+            CPH.LogDebug("The target hasn't been suggested yet; adding to list.");
         }
 
         return alreadySuggested;
+    }
+
+    /**
+     * Validate if the user has been following for enough time 
+     **/
+    public bool CanUserSuggest()
+    {
+        bool valid = false;
+
+        //PrintArgsVerbose();
+
+        Boolean isFollowing = (Boolean)args["isFollowing"];
+        
+        if (isFollowing)
+        {
+            CPH.LogDebug("The user is following.");
+            int followAgeDays = Int32.Parse((string)args["followAgeDays"]);
+            CPH.LogDebug("The user has been following for " + followAgeDays + " days.");
+            if(followAgeDays >= 31)
+            {
+                valid = true;
+            }
+        }
+
+        return valid;
     }
 
 
     /**
      * Validates if the raid target is online. 
      **/
-    public bool isTargetOnline()
+    public bool IsTargetOnline()
     {
         bool targetOnline = false;
 
-        printArgsVerb();
+        //PrintArgsVerbose();
+
+        string targetPageResults = (string)args["targetPageResults"];
+
+        if (targetPageResults != null)
+        {
+            targetOnline = targetPageResults.Contains("\"isLiveBroadcast\":true");
+        }
+
+        if(targetOnline)
+        {
+            CPH.LogDebug("Target is online!");
+        }
 
         return targetOnline;
+    }
+
+    public bool AddTargetToList()
+    {
+        string raidTarget = (string)args["raidTarget"];
+
+        ArrayList raidList = CPH.GetGlobalVar<ArrayList>("raidList", true);
+
+        raidList.Add(raidTarget);
+        CPH.LogDebug("The target hasn't been suggested yet; adding to list.");
+
+        CPH.SetGlobalVar("raidList", raidList, true);
+
+        return true;
     }
 
 
@@ -149,7 +212,7 @@ public class CPHInline
         return JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
     }
 
-    public void printArgsVerb()
+    public void PrintArgsVerbose()
     {
         CPH.LogVerbose($"Arguments being passed in...");
         foreach (var arg in args)

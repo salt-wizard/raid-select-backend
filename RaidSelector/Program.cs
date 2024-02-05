@@ -9,8 +9,10 @@ using static CPHNameSpace.CPHArgs; // Mimic arguments for inline CPH
 ************************************************************************/
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public class CPHInline
 {
@@ -37,6 +39,26 @@ public class CPHInline
      * 
      * Any method that is to be used by Streamer.Bot must have a reutrn type of bool and no parameters
      **/
+
+    public bool PushUpdatedRaidList()
+    {
+        /* Grab the WS connection */
+        String sessionId = CPH.GetGlobalVar<String>("raidSessionId", true);
+        int wssIdx = CPH.GetGlobalVar<int>("raidWssIdx", true);
+
+        // Get current raidlist
+        ArrayList raidList = CPH.GetGlobalVar<ArrayList>("raidList", true);
+
+        string rawJson = JsonConvert.SerializeObject(raidList);
+        string updatedJson = rawJson.Replace("\\r","");
+        updatedJson = updatedJson.Replace("\\n", "").Replace("\\\"", "\"").Replace("}\"", "}").Replace("\"{", "{").Replace(" ", "");
+
+        // Broadcast the JSON message
+        CPH.WebsocketCustomServerBroadcast(updatedJson, sessionId, wssIdx);
+
+        return true;
+    }
+
 
     /**
      * Loads the blacklist from the specified file and puts it into a list for the user
@@ -68,8 +90,10 @@ public class CPHInline
     public bool InitRaidList()
     {
         ArrayList raidList = new ArrayList();
+        ArrayList raidTextList = new ArrayList();
 
         CPH.SetGlobalVar("raidList", raidList, true);
+        CPH.SetGlobalVar("raidTextList", raidList, true);
 
         return true;
     }
@@ -119,14 +143,14 @@ public class CPHInline
 
         //PrintArgsVerbose();
 
-        ArrayList raidList = CPH.GetGlobalVar<ArrayList>("raidList", true);
+        ArrayList raidTextList = CPH.GetGlobalVar<ArrayList>("raidTextList", true);
         CPH.LogDebug("Suggested users ----- ");
-        foreach (string item in raidList)
+        foreach (string item in raidTextList)
         {
             CPH.LogDebug("user :: " + item);
         }
 
-        alreadySuggested = raidList.Contains(raidTarget);
+        alreadySuggested = raidTextList.Contains(raidTarget);
 
         if (alreadySuggested)
         {
@@ -172,7 +196,7 @@ public class CPHInline
     {
         bool targetOnline = false;
 
-        //PrintArgsVerbose();
+        PrintArgsVerbose();
 
         string targetPageResults = (string)args["targetPageResults"];
 
@@ -184,6 +208,9 @@ public class CPHInline
         if(targetOnline)
         {
             CPH.LogDebug("Target is online!");
+        } else
+        {
+            CPH.LogDebug("TARGET IS NOT ONLINE!!!");
         }
 
         return targetOnline;
@@ -192,15 +219,89 @@ public class CPHInline
     public bool AddTargetToList()
     {
         string raidTarget = (string)args["raidTarget"];
+        string profilePage = (string)args["profilePage"];
 
         ArrayList raidList = CPH.GetGlobalVar<ArrayList>("raidList", true);
+        ArrayList raidTextList = CPH.GetGlobalVar<ArrayList>("raidTextList", true);
 
-        raidList.Add(raidTarget);
+
+        // Create a JSON for the raid target
+        dynamic jsonObject = new JObject();
+        jsonObject.name = raidTarget;
+        jsonObject.pfp = GetTargetPFP(profilePage);
+
+        // Needs to be added as a String
+        string jsonString = jsonObject.ToString();
+        CPH.LogDebug("Json string being added :: ");
+        CPH.LogDebug(jsonString);
+        raidList.Add(jsonString);
+        raidTextList.Add(raidTarget);
         CPH.LogDebug("The target hasn't been suggested yet; adding to list.");
 
         CPH.SetGlobalVar("raidList", raidList, true);
+        CPH.SetGlobalVar("raidTextList", raidTextList, true);
 
         return true;
+    }
+
+    // Return the target's PFP image URL using the URL page (doesn't require authentication)
+    // Is there a better way of doing this? Yes. I don't really care though.
+    private string GetTargetPFP(string input)
+    {
+        string pfp = "";
+        string pattern = @"https://static-cdn.jtvnw.net/jtv_user_pictures/([A-Za-z0-9\-]+)-profile_image-300x300.png";
+
+        if (input != null)
+        {
+            CPH.LogDebug("Input not null");
+            Match m = Regex.Match(input, pattern, RegexOptions.IgnoreCase);
+            if (m.Success)
+            {
+                pfp = m.Value;
+                CPH.LogDebug("Profile URL :: " + pfp);
+            }
+        }
+
+        return pfp;
+    }
+
+    public bool StartRandomRaid()
+    {
+        bool randomRaid = false;
+        string data = (string)args["data"];
+        if(data != null)
+        {
+            CPH.LogVerbose("StartRandomRaid --  data :: " + data);
+            dynamic json = JObject.Parse(data);
+            string action = json.action;
+            if (action != null && action.Equals("raid"))
+            {
+                CPH.LogDebug("StartRandomRaid -- RANDOM RAID IS BEING INVOKED");
+                randomRaid = true;
+
+                //CPH.TwitchStartRaidByName();
+            }
+        }
+
+        return randomRaid;
+    }
+
+    public bool CancelRaidVerify()
+    {
+        //PrintArgsVerbose();
+
+        var data = args["data"];
+        CPH.LogDebug("Data :: " + data);
+
+        if (data.Equals("CANCELRAID"))
+        {
+            CPH.LogDebug("Canceling raid...");
+            return true;
+        } else
+        {
+            CPH.LogVerbose("Invalid command, ignoring...");
+            return false;
+        }
     }
 
 

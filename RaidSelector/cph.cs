@@ -316,6 +316,13 @@ namespace CPHNameSpace
 
         // Discord
         public static bool DiscordPostTextToWebhook(string webhookUrl, string content, string? username = null, bool textToSpeech = false) { return false; }
+
+
+        // Twitch
+        public static bool TwitchStartRaidById(string userId) { return false; }
+        public static bool TwitchStartRaidByName(string userName) { return false; }
+        public static bool TwitchCancelRaid() { return false; }
+
     }
 #pragma warning restore IDE0060
 }
